@@ -29,7 +29,7 @@ def load_amazon_ft_file(file_path, max_lines=None):
 
 # Ajout features descriptives
 
-def compute_special_char_ratio(text):
+def _compute_special_char_ratio(text):
     if not text:
         return 0
     special_chars = sum(1 for c in text if not c.isalnum() and not c.isspace())
@@ -54,7 +54,7 @@ def build_balanced_subset(df, n_per_class=3000, random_state=42):
 
 
 # Top 50 mots par classe
-def get_top_n(corpus, ngram_range=(1,1), n=20, stop_words='english'):
+def get_top_n(corpus, stop_words, ngram_range=(1,1), n=20):
     vec = CountVectorizer(stop_words=stop_words, ngram_range=ngram_range)
     X = vec.fit_transform(corpus)
     freqs = X.sum(axis=0).A1
